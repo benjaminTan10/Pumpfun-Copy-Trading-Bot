@@ -4,23 +4,18 @@ const LOG_LEVEL: &str = "LOG";
 
 pub struct Logger {
     prefix: String,
-    date_format: String,
 }
 
 impl Logger {
     // Constructor function to create a new Logger instance
     pub fn new(prefix: String) -> Self {
-        Logger {
-            prefix,
-            date_format: String::from("%Y-%m-%d %H:%M:%S"),
-        }
+        Self { prefix }
     }
 
     // Method to log a message with a prefix
-    pub fn log(&self, message: String) -> String {
-        let log = format!("{} {}", self.prefix_with_date(), message);
-        println!("{}", log);
-        log
+    pub fn log(&self, message: String) {
+        let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
+        println!("{} {} {}", timestamp, self.prefix, message);
     }
 
     pub fn debug(&self, message: String) -> String {
@@ -41,7 +36,7 @@ impl Logger {
         let date = Local::now();
         format!(
             "[{}] {}",
-            date.format(self.date_format.as_str()),
+            date.format("%Y-%m-%d %H:%M:%S"),
             self.prefix
         )
     }

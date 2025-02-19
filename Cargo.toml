@@ -1,18 +1,22 @@
 [package]
-name = "pump-fun-copy-trader"
-version = "0.1.0"
+name = "pumpfun-copy"
+version = "0.1.1"
 edition = "2021"
 
 [dependencies]
-tokio = { version = "1.28", features = ["full"] }
-solana-sdk = "1.17"
-solana-client = "1.17"
-solana-transaction-status = "1.17"
+anyhow = "1.0"
+solana-client = "1.16"
+solana-sdk = "1.16"
+solana-program = "1.16"
+solana-account-decoder = "1.16"
+solana-transaction-status = "1.16"
 spl-token = "4.0"
 spl-associated-token-account = "2.2"
-anyhow = "1.0"
-dotenv = "0.15"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+futures = "0.3"
+tracing = "0.1"
+tracing-subscriber = "0.3"
 chrono = "0.4"
-jito-json-rpc-client = "0.1"
-borsh = "0.10"
-bytemuck = "1.13"
+dotenvy = "0.15"
