@@ -13,6 +13,13 @@ spl-associated-token-account = "2.2"
 anyhow = "1.0"
 dotenv = "0.15"
 chrono = "0.4"
-jito-json-rpc-client = "0.1"
 borsh = "0.10"
 bytemuck = "1.13"
+jito-json-rpc-client = { git = "https://github.com/jito-labs/json-rpc-client.git", rev = "7f3c0a4" }
+
+# Optional but recommended for better performance
+reqwest = { version = "0.11", features = ["json"] }
+futures = "0.3"
+base64 = "0.21"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

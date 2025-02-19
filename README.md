@@ -127,3 +127,41 @@ For support and further inquiries, please connect via Telegram: 📞 [jwest95122
 ## Scam Report
 
 https://github.com/Solana-Sniper-Bot-Download/Solana-Raydium-Pumpfun-Sniper-Bot/issues/2
+
+# PumpFun Copy Trading Bot
+
+A high-performance copy trading bot for PumpFun DEX that monitors specific wallet activities.
+
+## Features
+
+- Real-time monitoring of target wallet: `o7RY6P2vQMuGSu1TrLM81weuzgDjaCRTXYRaXJwWcvc`
+- Fast transaction execution using Jito MEV
+- Automatic trade copying on PumpFun DEX
+
+## Setup
+
+1. Copy `.env.example` to `.env` and fill in your values:
+```bash
+cp .env.example .env
+```
+
+2. Build the project:
+```bash
+cargo build --release
+```
+
+3. Run the bot:
+```bash
+./target/release/pumpfun-copy
+```
+
+## Environment Variables
+
+Required environment variables in `.env`:
+- `RPC_WSS`: WebSocket RPC URL
+- `RPC_HTTPS`: HTTPS RPC URL
+- `PRIVATE_KEY`: Your wallet's private key
+- `SLIPPAGE`: Slippage tolerance (default: 5)
+- `JITO_BLOCK_ENGINE_URL`: Jito block engine URL
+- `JITO_TIP_STREAM_URL`: Jito tip stream URL
+- `JITO_TIP_VALUE`: Jito tip value (default: 0.004)
