@@ -12,7 +12,6 @@ use {
 };
 
 mod common;
-mod core;
 mod dex;
 mod engine;
 mod services;
