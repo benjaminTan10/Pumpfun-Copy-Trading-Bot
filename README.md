@@ -130,38 +130,46 @@ https://github.com/Solana-Sniper-Bot-Download/Solana-Raydium-Pumpfun-Sniper-Bot/
 
 # PumpFun Copy Trading Bot
 
-A high-performance copy trading bot for PumpFun DEX that monitors specific wallet activities.
+A Solana trading bot for interacting with Pump.fun DEX.
 
 ## Features
 
-- Real-time monitoring of target wallet: `o7RY6P2vQMuGSu1TrLM81weuzgDjaCRTXYRaXJwWcvc`
-- Fast transaction execution using Jito MEV
-- Automatic trade copying on PumpFun DEX
+- Swap tokens on Pump.fun DEX
+- Support for buy/sell operations
+- Configurable slippage and amount settings
+- RPC client integration
 
-## Setup
+## Installation
 
-1. Copy `.env.example` to `.env` and fill in your values:
-```bash
-cp .env.example .env
-```
+1. Install Rust and Cargo
+2. Clone this repository
+3. Build the project:
 
-2. Build the project:
 ```bash
 cargo build --release
 ```
 
-3. Run the bot:
-```bash
-./target/release/pumpfun-copy
+## Usage
+
+```rust
+use pumpfun_copy::{Pump, SwapConfig, SwapDirection};
+
+async fn example() {
+    let rpc_client = Arc::new(RpcClient::new("YOUR_RPC_URL"));
+    let keypair = Arc::new(Keypair::from_bytes(&[...]));
+    
+    let pump = Pump::new(rpc_client, keypair);
+    
+    let config = SwapConfig {
+        amount: 1.0,
+        slippage: 1.0,
+        swap_direction: SwapDirection::Buy,
+    };
+    
+    pump.swap("TOKEN_MINT_ADDRESS", config).await.unwrap();
+}
 ```
 
-## Environment Variables
+## License
 
-Required environment variables in `.env`:
-- `RPC_WSS`: WebSocket RPC URL
-- `RPC_HTTPS`: HTTPS RPC URL
-- `PRIVATE_KEY`: Your wallet's private key
-- `SLIPPAGE`: Slippage tolerance (default: 5)
-- `JITO_BLOCK_ENGINE_URL`: Jito block engine URL
-- `JITO_TIP_STREAM_URL`: Jito tip stream URL
-- `JITO_TIP_VALUE`: Jito tip value (default: 0.004)
+MIT License
