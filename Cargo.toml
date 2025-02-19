@@ -1,6 +1,6 @@
 [package]
-name = "pump-fun-copy-trader"
-version = "0.1.0"
+name = "pumpfun-copy"
+version = "0.1.1"
 edition = "2021"
 
 [dependencies]
