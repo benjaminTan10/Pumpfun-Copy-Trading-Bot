@@ -2,6 +2,20 @@ use anyhow::Result;
 use solana_sdk::{commitment_config::CommitmentConfig, signature::Keypair};
 use std::{env, sync::Arc};
 
+#[derive(Debug, Clone)]
+pub struct SwapConfig {
+    pub slippage: u64,
+    pub use_jito: bool,
+    pub amount: u64,
+    pub swap_direction: SwapDirection,
+}
+
+#[derive(Debug, Clone)]
+pub enum SwapDirection {
+    Buy,
+    Sell,
+}
+
 #[derive(Clone)]
 pub struct AppState {
     pub rpc_client: Arc<solana_client::rpc_client::RpcClient>,
@@ -35,6 +49,5 @@ pub async fn create_nonblocking_rpc_client(
 pub fn import_wallet() -> Result<Arc<Keypair>> {
     let priv_key = import_env_var("PRIVATE_KEY");
     let wallet: Keypair = Keypair::from_base58_string(priv_key.as_str());
-
     Ok(Arc::new(wallet))
 }

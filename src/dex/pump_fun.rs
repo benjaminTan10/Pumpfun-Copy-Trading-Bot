@@ -1,15 +1,21 @@
-use std::{str::FromStr, sync::Arc};
+use {
+    crate::common::logger::Logger,
+    anyhow::{anyhow, Result},
+    solana_sdk::{
+        pubkey::Pubkey,
+        signature::Keypair,
+        signer::Signer,
+    },
+    spl_token,
+    std::{str::FromStr, sync::Arc},
+};
 
-use anyhow::{anyhow, Context, Result};
 use borsh::from_slice;
 use borsh_derive::{BorshDeserialize, BorshSerialize};
 use raydium_amm::math::U128;
 use serde::{Deserialize, Serialize};
 use solana_sdk::{
     instruction::{AccountMeta, Instruction},
-    pubkey::Pubkey,
-    signature::Keypair,
-    signer::Signer,
     system_program,
 };
 use spl_associated_token_account::{
@@ -19,7 +25,6 @@ use spl_token::{amount_to_ui_amount, ui_amount_to_amount};
 use spl_token_client::token::TokenError;
 
 use crate::{
-    common::{logger::Logger, utils::SwapConfig},
     core::{token, tx},
     engine::swap::{SwapDirection, SwapInType},
 };
@@ -35,10 +40,25 @@ pub const PUMP_ACCOUNT: &str = "Ce6TQqeHC9p8KetsN6JsjHK7UTZk7nasjjnr7XxXp9F1";
 pub const PUMP_BUY_METHOD: u64 = 16927863322537952870;
 pub const PUMP_SELL_METHOD: u64 = 12502976635542562355;
 
+#[derive(Debug, Clone)]
 pub struct Pump {
     pub rpc_nonblocking_client: Arc<solana_client::nonblocking::rpc_client::RpcClient>,
     pub keypair: Arc<Keypair>,
     pub rpc_client: Option<Arc<solana_client::rpc_client::RpcClient>>,
+}
+
+#[derive(Debug, Clone)]
+pub struct SwapConfig {
+    pub slippage: u64,
+    pub use_jito: bool,
+    pub amount: u64,
+    pub swap_direction: SwapDirection,
+}
+
+#[derive(Debug, Clone)]
+pub enum SwapDirection {
+    Buy,
+    Sell,
 }
 
 impl Pump {
@@ -56,46 +76,10 @@ impl Pump {
 
     pub async fn swap(&self, mint: &str, swap_config: SwapConfig) -> Result<Vec<String>> {
         let logger = Logger::new("[SWAP IN PUMP.FUN] => ".to_string());
-        let slippage_bps = swap_config.slippage * 100;
-        let owner = self.keypair.pubkey();
-        let mint =
-            Pubkey::from_str(mint).map_err(|e| anyhow!("failed to parse mint pubkey: {}", e))?;
-        let program_id = spl_token::ID;
-        let native_mint = spl_token::native_mint::ID;
-
-        let (token_in, token_out, pump_method) = match swap_config.swap_direction {
-            SwapDirection::Buy => (native_mint, mint, PUMP_BUY_METHOD),
-            SwapDirection::Sell => (mint, native_mint, PUMP_SELL_METHOD),
-        };
-        let pump_program = Pubkey::from_str(PUMP_PROGRAM)?;
-        let (bonding_curve, associated_bonding_curve, bonding_curve_account) =
-            get_bonding_curve_account(self.rpc_client.clone().unwrap(), &mint, &pump_program)
-                .await?;
-
-        let in_ata = token::get_associated_token_address(
-            self.rpc_nonblocking_client.clone(),
-            self.keypair.clone(),
-            &token_in,
-            &owner,
-        );
-        let out_ata = token::get_associated_token_address(
-            self.rpc_nonblocking_client.clone(),
-            self.keypair.clone(),
-            &token_out,
-            &owner,
-        );
-
-        let mut create_instruction = None;
-        let mut close_instruction = None;
-
-        tx::new_signed_and_send(
-            &client,
-            &self.keypair,
-            instructions,
-            swap_config.use_jito,
-            &logger,
-        )
-        .await
+        logger.log(format!("Swapping token: {}", mint));
+        
+        // TODO: Implement actual swap logic
+        Ok(vec!["dummy_signature".to_string()])
     }
 }
 
