@@ -1,8 +1,8 @@
-# Solana Ultra-Fast New Token Sniper on Raydium and Pump.fun in Rust 🚀
+# Solana PumpFun Copy Trading Bot in Rust 🚀
 
 ## Overview
 
-Introducing the **Solana Ultra-Fast New Token Sniper** written in **Rust** 🦀, designed to detect and trade tokens on **Pump.fun** with lightning speed ⚡. Built with Rust for superior performance and security, this bot is tailored for both novice and experienced traders.
+Introducing the **Solana PumpFun Copy Trading Bot** written in **Rust** 🦀, designed to monitor and replicate trades on **Pump.fun** with lightning speed ⚡. Built with Rust for superior performance and security, this bot tracks specific wallets for trading signals and executes copy trades using Jito MEV integration for enhanced transaction priority. Perfect for traders looking to automatically mirror successful trading strategies on PumpFun DEX.
 
 ---
 
@@ -15,6 +15,9 @@ Introducing the **Solana Ultra-Fast New Token Sniper** written in **Rust** 🦀,
 ### 🔒 Safety First
 - **Robust Security**: Rust's safety guarantees minimize bugs and vulnerabilities
 - **Configurable Parameters**: Customizable slippage and amount settings for risk management
+
+
+
 
 ### 📊 Monitoring Capabilities
 - **Wallet Tracking**: Monitor specific wallets for trading signals
