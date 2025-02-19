@@ -53,12 +53,12 @@ impl Pump {
         let logger = Logger::new("[SWAP IN PUMP.FUN] => ".to_string());
         logger.log(format!("Swapping token: {}", mint));
         
-        let mint_pubkey = Pubkey::from_str(mint)?;
-        let owner = self.keypair.as_ref().pubkey();
+        let _mint_pubkey = Pubkey::from_str(mint)?;
+        let _owner = self.keypair.as_ref().pubkey();
 
         // TODO: Implement actual swap logic
         // 1. Get bonding curve info
-        let pump_info = get_pump_info(self.rpc_client.as_ref().unwrap().clone(), mint).await?;
+        let _pump_info = get_pump_info(self.rpc_client.as_ref().unwrap().clone(), mint).await?;
         
         // 2. Calculate amounts based on direction
         match config.swap_direction {
