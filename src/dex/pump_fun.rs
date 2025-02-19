@@ -6,7 +6,7 @@ use {
     anyhow::Result,
     solana_sdk::{
         pubkey::Pubkey,
-        signature::Keypair,
+        signature::{Keypair, Signer},
     },
     std::{str::FromStr, sync::Arc},
 };
@@ -54,7 +54,7 @@ impl Pump {
         logger.log(format!("Swapping token: {}", mint));
         
         let mint_pubkey = Pubkey::from_str(mint)?;
-        let owner = self.keypair.pubkey();
+        let owner = self.keypair.as_ref().pubkey();
 
         // TODO: Implement actual swap logic
         // 1. Get bonding curve info
@@ -76,11 +76,11 @@ impl Pump {
 }
 
 pub async fn get_pump_info(
-    rpc_client: Arc<solana_client::rpc_client::RpcClient>,
+    _rpc_client: Arc<solana_client::rpc_client::RpcClient>,
     mint: &str,
 ) -> Result<PumpInfo> {
     let mint = Pubkey::from_str(mint)?;
-    let program_id = Pubkey::from_str(PUMP_PROGRAM)?;
+    let _program_id = Pubkey::from_str(PUMP_PROGRAM)?;
     
     // TODO: Implement actual PumpFun info fetching
     Ok(PumpInfo {
